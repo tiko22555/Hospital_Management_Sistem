@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+            {% if request.user.is_authenticated %}
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+            {% else %}
+                <h2><a href="{% url 'login_' %}">Մուտք</a></h2>
+                <h2><a href="{% url 'register' %}">Գրանցում</a></h2>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>ԳՐԱՆՑՄԱՆ ՕՐԵՐ</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="doctor_id" value="{{ doctor.id }}">
+
+            <label for="year">Ընտրել տարի:</label>
+            <select id="year" name="year" required>
+                <option value="" selected disabled>Ընտրել տարի</option>
+                {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="month">Ընտրել ամիս:</label>
+            <select id="month" name="month" required disabled>
+                <option value="" selected disabled>Սկզբում ընտրեք տարի</option>
+                {% for month in months %}
+                    <option value="{{ month }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="day_slot">Ընտրել օր:</label>
+            <select id="day_slot" name="day_slot" required disabled>
+                <option value="" selected disabled>Սկզբում ընտրեք ամիս</option>
+            </select>
+
+            <label for="time_slot">Ընտրել ժամ:</label>
+            <select id="time_slot" name="time_slot" required disabled>
+                <option value="" selected disabled>Սկզբում ընտրեք օր</option>
+            </select>
+
+            <button type="submit">Գրանցում</button>
+        </form>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#month').prop('disabled', true);
+            $('#day_slot').prop('disabled', true);
+            $('#time_slot').prop('disabled', true);
+
+            $('#year').change(function() {
+                var year = $(this).val();
+                if (year) {
+                    $.ajax({
+                        url: "{% url 'get_months_ajax' %}",
+                        data: {
+                            'year': year
+                        },
+                        success: function(data) {
+                            var monthSelect = $('#month');
+                            monthSelect.empty();
+                            monthSelect.append('<option value="" selected disabled>Ընտրեք ամիս</option>');
+                            $.each(data.months, function(index, value) {
+                                monthSelect.append($('<option>', {
+                                    value: value,
+                                    text: value
+                                }));
+                            });
+                            $('#month').prop('disabled', false);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Ошибка AJAX: ", status, error);
+                        }
+                    });
+                } else {
+                    $('#month').prop('disabled', true).empty().append('<option value="" selected disabled>Սկզբում ընտրեք տարի</option>');
+                }
+            });
+
+            $('#month').change(function() {
+                var month = $(this).val();
+                var year = $('#year').val();
+                if (month && year) {
+                    $.ajax({
+                        url: "{% url 'get_days' %}",
+                        data: {
+                            'month': month,
+                            'year': year
+                        },
+                        success: function(data) {
+                            var daySelect = $('#day_slot');
+                            daySelect.empty();
+                            daySelect.append('<option value="" selected disabled>Ընտրեք օր</option>');
+                            $.each(data.days, function(index, value) {
+                                daySelect.append($('<option>', {
+                                    value: value,
+                                    text: value
+                                }));
+                            });
+                            $('#day_slot').prop('disabled', false);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Ошибка AJAX: ", status, error);
+                        }
+                    });
+                } else {
+                    $('#day_slot').prop('disabled', true).empty().append('<option value="" selected disabled>Սկզբում ընտրեք месяц</option>');
+                }
+            });
+
+            $('#day_slot').change(function() {
+                var day = $(this).val();
+                var month = $('#month').val();
+                var year = $('#year').val();
+                var doctor_id = $('input[name="doctor_id"]').val();
+
+                if (day && month && year && doctor_id) {
+                    $.ajax({
+                        url: "{% url 'get_hours' %}",
+                        data: {
+                            'day': day,
+                            'month': month,
+                            'year': year,  
+                            'doctor_id': doctor_id
+                        },
+                        success: function(data) {
+                            var timeSelect = $('#time_slot');
+                            timeSelect.empty();
+                            timeSelect.append('<option value="" selected disabled>Ընտրեք ժամ</option>');
+                            $.each(data.hours, function(index, value) {
+                                timeSelect.append($('<option>', {
+                                    value: value,
+                                    text: value
+                                }));
+                            });
+                            $('#time_slot').prop('disabled', false);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Ошибка AJAX: ", status, error);
+                        }
+                    });
+                } else {
+                    $('#time_slot').prop('disabled', true).empty().append('<option value="" selected disabled>Սկզբում ընտրեք день</option>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

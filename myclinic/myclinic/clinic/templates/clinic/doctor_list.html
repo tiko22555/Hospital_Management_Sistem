@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .doctor-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .doctor-list li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .doctor-info img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .doctor-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doctor-details p {
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .doctor-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .doctor-speciality, .doctor-email, .doctor-description {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+            {% if request.user.is_authenticated %}
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+            {% else %}
+                <h2><a href="{% url 'login_' %}">Մուտք</a></h2>
+                <h2><a href="{% url 'register' %}">Գրանցում</a></h2>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="container">
+        <h3>{{ clinic.name }} Կլինիկա - Բժիշկներ</h3>
+        <ul class="doctor-list">
+            {% for doctor in doctors %}
+                <li>
+                    <div class="doctor-info">
+                        <img src="{% if doctor.profile_picture %}{{ doctor.profile_picture.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Doctor Picture">
+                        <div class="doctor-details">
+                            <p class="doctor-name">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</p>
+                            <p class="doctor-speciality">{{ doctor.speciality }}</p>
+                            <p class="doctor-email">{{ doctor.user.email }}</p>
+                            <a href="{% url 'doctor_description_view' doctor.id %}">Կենսագրություն</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'doctor_schedule' doctor.id %}" class="button">Ժամանակացույց</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'another_doctors' clinic.id %}" class="button">Այլ {{ doctors.0.speciality }}ներ Հայաստանում&#128269;</a>
+    </div>
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+</body>
+</html>

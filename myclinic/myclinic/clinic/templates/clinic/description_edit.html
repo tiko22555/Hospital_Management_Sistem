@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Բժիշկ ֊ {{ app.doctor }}</h2>
+        <h3>Պացիենտ ֊ {{ app.patient }}</h3>
+        {{ app.schedule|date:"F j, Y, H:i" }}
+        <form id="description-form" action="{% url 'description_edit' app.id %}" method="post">
+            {% csrf_token %}
+            <label for="description">Եզրակացություն</label><br>
+            <textarea name="description" id="description" rows="5" cols="100">{{ app.description }}</textarea><br>
+            {% if app.description %}
+                <button type="submit">Խմբագրել</button>
+            {% else %}
+                <button type="submit">Գրանցել</button>
+            {% endif %}
+        </form>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+
+    <script>
+        document.getElementById('description-form').onsubmit = function(event) {
+            event.preventDefault(); 
+
+            let form = event.target;
+            let formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    
+                    window.history.back();
+                } else {
+                    console.error('Ошибка при отправке формы');
+                }
+            })
+            .catch(error => console.error('Ошибка сети:', error));
+        };
+    </script>
+</body>
+</html>
