@@ -92,6 +92,7 @@
             <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
         </div>
         <div class="auth-links">
+            <h2><a href="{% url 'edit_user_info' %}">Կարգավորումներ</a></h2>
             <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
         </div>
     </header>
@@ -103,7 +104,7 @@
                      alt="Doctor Profile Picture" class="profile-picture">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*" onchange="this.form.submit()" style="display: none;"> <!-- Скрываем стандартный input -->
+                    <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*" onchange="this.form.submit()" style="display: none;">
                 </form>
             </div>
 
@@ -119,26 +120,9 @@
                     </form>
                 </div>
 
-                <p class="editable-field" onclick="showEditForm('email')">{{ doctor.user.email }}&#9997;</p>
-                <div id="edit-email" class="edit-popup">
-                    <form method="POST" action="{% url 'update_doctor_info' %}">
-                        {% csrf_token %}
-                        <input type="email" name="email" value="{{ doctor.user.email }}" required>
-                        <button type="submit" onclick="submitEditForm('email'); return false;">Հաստատել</button>
-                        <button type="button" onclick="hideEditForm('email')">Չեղարկել</button>
-                    </form>
-                </div>
-
                 <p><a href="{% url 'doctor_description' %}">Իմ մասին&#9997;</a></p>
             </div>
 
-            <div class="activation-button">
-                {% if doctor.is_active %}
-                    <a href="{% url 'is_active' %}" class="button">&#10060;Ապաակտիվացնել պրոֆիլը</a>
-                {% else %}
-                    <a href="{% url 'is_active' %}" class="button">&#9989;Ակտիվացնել պրոֆիլը</a>
-                {% endif %}
-            </div>
         </div>
 
         <ul class="actions-list">

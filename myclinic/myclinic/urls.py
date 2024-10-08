@@ -28,10 +28,10 @@ from .api.datetime import get_days, get_hours, get_months_ajax
 from .api.descriptions import description, description_edit
 from .api.doctor_list import doctor_list, another_doctors
 from .api.profiles import doctor_profile, patient_profile, profile, is_active, delete_profile
-from .api.user_autenth import register, login_, log_out
+from .api.user_autenth import register, login_, log_out, send_email_for_reset_password, input_code, reset_password
 from .api.work_diagram import chart_view
 from .api.descriptions import doctor_description
-from .api.update_doctor_info import update_doctor_info
+from .api.update_info import update_doctor_info, edit_user_info
 from .api.doctor_description_view import doctor_description_view
 from django.conf import settings
 from django.conf.urls.static import static
@@ -65,8 +65,11 @@ urlpatterns = [
     path("doctor_description/", doctor_description, name = "doctor_description"),
     path('update_doctor_info/', update_doctor_info, name='update_doctor_info'),
     path("<int:doctor_id>/doctor_description_view/", doctor_description_view, name = "doctor_description_view"),
-    path("delete_profile/", delete_profile, name = "delete_profile")
+    path("delete_profile/", delete_profile, name = "delete_profile"),
+    path("edit_user_info/", edit_user_info, name = "edit_user_info"),
+    path("send_email_for_reset_password/", send_email_for_reset_password, name = "send_email_for_reset_password"),
+    path("reset_password_code/", input_code, name = "input_code"),
+    path("reset_password/", reset_password, name = "reset_password")
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

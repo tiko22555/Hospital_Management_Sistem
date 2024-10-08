@@ -1,4 +1,3 @@
-import calendar
 from django.core.mail import send_mail
 from datetime import datetime
 
@@ -16,7 +15,6 @@ def clinic_name_eng(clinic_name):
     return(dict_clinic_name[clinic_name])
 
 def get_months(year):
-    """Возвращает список месяцев в зависимости от выбранного года."""
     months_full = ['January', 'February', 'March', 'April', 'May', 'June', 
                    'July', 'August', 'September', 'October', 'November', 'December']
     
@@ -29,5 +27,5 @@ def get_months(year):
         return months_full 
         
 
-def send_email_to_patient(patient_email, status, desc, admin_email):
+def send_email_to_user(patient_email, status, desc, admin_email):
     send_mail(status, desc, admin_email, [patient_email], fail_silently=False)

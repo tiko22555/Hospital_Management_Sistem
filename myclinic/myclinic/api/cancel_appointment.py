@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404
 from ..clinic.models import Doctor, Appointment, Patient
 from django.urls import reverse
-from ..tools import send_email_to_patient
+from ..tools import send_email_to_user
 
     
 def cancel_appointment(request, app_id):
@@ -14,7 +14,7 @@ def cancel_appointment(request, app_id):
             patient = app.patient
             schedule = app.schedule
             app.delete()
-            send_email_to_patient(patient.user.email,
+            send_email_to_user(patient.user.email,
                     "Հանդիպման չեղարկում ֊ ՌԵԱԼ-ԼԱՅՖ",
                     f"Ձեր {schedule.strftime('%Y-%m-%d %H:%M')} հանդիպումը չեղարկվել է բժիշկ {doctor}֊ի կողմից՝ զբաղվածության պատճառով։ Խնդրում ենք գրանցվել մեկ այլ ազատ ժամի։",
                     'reallifecomplex2024@gmail.com'

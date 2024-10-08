@@ -16,24 +16,19 @@
     </header>
     
     <div class="container">
-        <h3>Եթե դեռ չունեք անձնական էջ ապա գրանցվեք ֊ <a href="{% url 'register' %}" class="button"> Գրանցում</a></h3>
-        <form action="{% url 'login_' %}" method="post">
+        <form method="post">
             {% csrf_token %}
             <div class="error">
                 {% if error %}
                     <p>{{ error }}</p>
                 {% endif %}
             </div>
-            <label for="identifier">Մուտքանուն կամ էլ․ հասցե</label>
-            <input type="text" name="identifier" id="identifier"><br><br>
-            <label for="password">Գաղտնաբառ</label>
-            <input type="password" name="password" id="password"><br><br>
-            <div class="form-actions">
-                <button type="submit">Մուտք</button> <br><br>
-                <a href="{% url 'send_email_for_reset_password' %}" class="forgot-password">Մոռացել եք գաղտնաբառը?</a>
-            </div>
-            <br><br>
+            <label for="code">Մուտքագրեք էլ․ հասցեին ուղարկված կոդը </label>
+            <input type="text" name="code" id="code"><br><br>
+                <button type="submit">Առաջ</button>
+
         </form>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
         
     </div>
 

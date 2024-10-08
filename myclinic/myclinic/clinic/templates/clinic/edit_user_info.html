@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .settings-header h2 {
+            margin: 0;
+        }
+
+        .delete-button {
+            color: white;
+            background-color: red;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .delete-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+            <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+            <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="settings-header">
+            <h2>Կարգավորումներ</h2>
+            {%if patient%}
+            <a href="{% url 'delete_profile' %}" class="delete-button" onclick="return confirm('Վստահ էք որ ուզում էք ջնջել ձեր պրոֆիլը ?');">Ջնջել պրոֆիլը</a>
+            {%elif doctor%}
+            {% if doctor.is_active %}
+                    <a href="{% url 'is_active' %}" class="button">&#10060;Ապաակտիվացնել պրոֆիլը</a>
+                {% else %}
+                    <a href="{% url 'is_active' %}" class="button">&#9989;Ակտիվացնել պրոֆիլը</a>
+                {% endif %}
+            {%endif%}
+        </div>
+
+        {% if error %}
+            <p class="error" style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="email">Էլ․ հասցե:</label>
+            <input type="email" id="email" name="email" value="{{ request.user.email }}"><br><br>
+
+            <label for="username">Մուտքանուն:</label>
+            <input type="text" id="username" name="username" value="{{ request.user.username }}"><br><br>
+
+            <label for="old_password">Նախկին գաղտնաբառ:</label>
+            <input type="password" id="old_password" name="old_password"><br><br>
+
+            <label for="new_password">Նոր գաղտնաբառ:</label>
+            <input type="password" id="new_password" name="new_password"><br><br>
+
+            <label for="new_password_again">Կրկնեք նոր գաղտնաբառը:</label>
+            <input type="password" id="new_password_again" name="new_password_again"><br><br>
+
+            <button type="submit">Պահպանել</button>
+        </form>
+
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+</body>
+</html>

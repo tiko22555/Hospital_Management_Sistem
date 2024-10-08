@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from ..clinic.models import Doctor
 
 def doctor_description_view(request, doctor_id):

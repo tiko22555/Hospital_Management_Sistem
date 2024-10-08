@@ -49,7 +49,6 @@ def get_hours(request):
     return JsonResponse({'hours': []})
 
 def get_months_ajax(request):
-    """AJAX-функция для получения списка месяцев."""
     year = int(request.GET.get('year'))
     months = get_months(year)
     return JsonResponse({'months': months})

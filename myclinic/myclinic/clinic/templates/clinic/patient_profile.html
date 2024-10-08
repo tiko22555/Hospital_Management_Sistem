@@ -14,16 +14,15 @@
             <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
         </div>
         <div class="auth-links">
-                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+            <h2><a href="{% url 'edit_user_info' %}">Կարգավորումներ</a></h2>
+            <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
         </div>
     </header>
+    
     <div class="container">
-        <div class="header-row">
-            <h2>{{ patient }}</h2>
-            <a href="{% url 'delete_profile' %}" class="button" onclick="return confirm('Վստահ էք որ ուզում էք ջնջել ձեր պրոֆիլը ?');">Ջնջել պրոֆիլը</a>
-        </div>
-        <h3>{{patient.user.email}}</h3>
-        <h3>Ձեր ընդհանուր այցերը</h3>
+        <h2>{{ patient }}</h2>
+
+        <h3>Ձեր ընդհանուր այցերը`</h3>
         {%if app_list_past%}
         <ul>
             {% for app in app_list_past %}
