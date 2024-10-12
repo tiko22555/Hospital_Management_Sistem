@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+            {% if request.user.is_authenticated %}
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+            {% else %}
+                <h2><a href="{% url 'login_' %}">Մուտք</a></h2>
+                <h2><a href="{% url 'register' %}">Գրանցում</a></h2>
+            {% endif %}
+        </div>
+    </header>
+    <div class="container">
+        <h2>Բժիշկների ցանկ</h2>
+        <ul class="doctor-list">
+        {% for item in list_item %}
+        <li>
+            <div class="doctor-info">
+                {{ item.name }} - {{ item.speciality }}
+            </div>
+        <a href="{{ item.link }}"class="button">Որոնել&#128269;</a>
+        </li>
+        {% endfor %}
+        </ul>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+</body>
+</html>

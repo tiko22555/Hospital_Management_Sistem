@@ -1,0 +1,239 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #b8f3ee;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #8ffcdf;
+    color: #06523d;
+    min-height: 100px; /* Увеличиваем минимальную высоту для лучшего выравнивания */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; /* Убираем отступы */
+    margin: 0; /* Убираем внешние отступы */
+}
+
+header a {
+    color: #06523d;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+header #branding h1 {
+    margin: 0;
+    padding-right: 50px;
+    font-size: 40px;
+}
+
+header .auth-links {
+    display: flex;
+    margin-left: auto;
+}
+
+header .auth-links h2:first-child {
+    font-size: 16px;
+    margin: 0 15px;
+}
+
+header .auth-links h2:not(:first-child) {
+    font-size: 16px;
+    margin: 0 15px;
+}
+
+/* Стили для логотипа */
+#branding {
+    display: flex;
+    align-items: center;
+    height: 100px; /* Задаем фиксированную высоту контейнера */
+}
+
+/* Логотип будет иметь высоту контейнера */
+.logo {
+    height: 100%; /* Логотип будет занимать всю высоту контейнера */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+    margin-right: 10px; /* Отступ между логотипом и текстом */
+    padding: 0; /* Убираем любые отступы у изображения */
+}
+
+/* Стили для шапки */
+header {
+    padding: 0; /* Убираем отступы у самого контейнера header */
+    background-color: #8ffcdf;
+}
+
+.auth-links {
+    margin-left: auto;
+}
+
+footer {
+    padding: 10px; /* Делаем отступы более заметными */
+    margin-top: 100px;
+    color: #06523d;
+    background-color: #8ffcdf;
+    text-align: center;
+}
+
+h2, h3 {
+    color: #06523d;
+    margin-bottom: 20px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+    background: #f4f4f4;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+}
+
+a {
+    color: #06523d;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+form {
+    background: #f4f4f4;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form input[type="text"],
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    display: inline-block;
+    background-color: #8ffcdf;
+    color: #06523d;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #8ffcdf;
+}
+
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.button {
+    display: inline-block;
+    background-color: #8ffcdf;
+    color: #06523d;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.clinic-list {
+    margin-top: 20px;
+}
+
+.clinic-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    background: #f4f4f4;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    position: relative;
+}
+
+.clinic-info {
+    flex: 1;
+    margin-right: 170px;
+}
+
+.clinic-image {
+    width: 150px;
+    height: 100%; /* Высота изображения равна контейнеру */
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.doctor-list {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.doctor-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f4f4f4;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.doctor-list .doctor-info {
+    flex: 1;
+}
+
+.doctor-list .button {
+    background-color: #8ffcdf;
+    color: #06523d;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.doctor-list .button:hover {
+    background-color: #8ffcdf;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between; /* Имя пациента слева, кнопка справа */
+    align-items: center; /* Вертикальное выравнивание по центру */
+}
+
+.header-row h2 {
+    margin: 0;
+}
+
+.header-row .button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.header-row .button:hover {
+    background-color: #ff3333; /* Цвет кнопки при наведении */
+}

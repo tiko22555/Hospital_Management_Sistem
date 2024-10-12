@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .profile-container {
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .profile-picture-wrapper {
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-picture {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .profile-info {
+            font-size: 14px;
+        }
+
+        .activation-button {
+            margin-left: auto;
+            align-self: flex-start;
+            font-size: 14px; 
+        }
+
+        .actions-list {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .actions-list li {
+            margin-bottom: 10px;
+        }
+
+        .editable-field {
+            cursor: pointer;
+            color: #06523d;
+            text-decoration: none;
+        }
+
+        .edit-popup {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        function showEditForm(field) {
+            document.querySelector(`#edit-${field}`).style.display = 'block';
+        }
+
+        function hideEditForm(field) {
+            document.querySelector(`#edit-${field}`).style.display = 'none';
+        }
+
+        function submitEditForm(field) {
+            const form = document.querySelector(`#edit-${field} form`);
+            form.submit();
+            hideEditForm(field); 
+        }
+
+        function triggerFileInput() {
+            document.getElementById('profile_picture_input').click(); 
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+            <h2><a href="{% url 'edit_user_info' %}">Կարգավորումներ</a></h2>
+            <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-picture-wrapper" onclick="triggerFileInput()">
+                <img src="{% if doctor.profile_picture %}{{ doctor.profile_picture.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" 
+                     alt="Doctor Profile Picture" class="profile-picture">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*" onchange="this.form.submit()" style="display: none;">
+                </form>
+            </div>
+
+            <div class="profile-info">
+                <h2>{{ doctor }}</h2>
+                <p class="editable-field" onclick="showEditForm('speciality')">{{ doctor.speciality }}&#9997;</p>
+                <div id="edit-speciality" class="edit-popup">
+                    <form method="POST" action="{% url 'update_doctor_info' %}">
+                        {% csrf_token %}
+                        <input type="text" name="speciality" value="{{ doctor.speciality }}" required>
+                        <button type="submit" onclick="submitEditForm('speciality'); return false;">Save</button>
+                        <button type="button" onclick="hideEditForm('speciality')">Cancel</button>
+                    </form>
+                </div>
+
+                <p><a href="{% url 'doctor_description' %}">Իմ մասին&#9997;</a></p>
+            </div>
+
+        </div>
+
+        <ul class="actions-list">
+            <li><a href="{% url 'create_appointment' %}" class="button">Գրանցել հանդիպում պացիենտի հետ&#9997;</a></li>
+            <li><a href="{% url 'select_date_doctor' %}" class="button">Հանդիպումներ ըստ օրերի&#128269;</a></li>
+            <li><a href="{% url 'select_email' %}" class="button">Հանդիպումներ կոնկրետ պացիենտի հետ&#128269;</a></li>
+            <li><a href="{% url 'all_appointments' %}" class="button">Դեռ չկայացած Հանդիպումները&#128269;</a></li>
+            <li><a href="{% url 'chart_view' %}" class="button">Զբաղվածության գրաֆիկ&#128200;</a></li>
+        </ul>
+
+        <footer>
+            <p>Hospital Management System &copy; 2024</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>{{doctor}}</h2>
+        <h3>Պացիենտների գրանցման մատյան`</h3>
+
+        {%if app_list_past%}
+        <ul>
+            {% for app in app_list_past %}
+                <li>&#9989;{{ app.schedule|date:"F j, Y, H:i" }}
+                    - {{ app.patient }} - <a href="{% url 'description_edit' app.id%}">Եզրակացություն</a></li>
+            {% endfor %}
+        </ul>
+        {%endif%}
+        {%if app_list%}
+        <ul>
+            {% for app in app_list %}
+                <li>&#10060;{{ app.schedule|date:"F j, Y, H:i" }}
+                    - {{ app.patient }} - <a href="{% url 'cancel_appointment' app.id%}" onclick="return confirm('Վստահ էք որ ուզում էք Չեղարկել հանդիպումը ?');">Չեղարկել հանդիպումը</a></li>
+            {% endfor %}
+        </ul>
+        {%endif%}
+        {%if not app_list and not app_list_past%}
+        <p>
+            Գրանցված պացիենտներ չկան
+        </p>
+        {%endif%}
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+</body>
+</html>

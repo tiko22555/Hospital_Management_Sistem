@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>REAL LIFE</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+    </header>
+    <div class="container">
+        <h2>ԳՐԱՆՑՈՒՄ</h2>
+
+        {% if user_form.errors %}
+        <div class="error">
+        {% for field in user_form %}
+            {% for error in field.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <button type="submit">Գրանցվել</button>
+        </form>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+
+</body>
+</html>

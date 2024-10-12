@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Բժիշկ ֊ {{ doctor }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="description">Կենսագրություն</label><br>
+            <textarea name="description" id="description" rows="10" cols="135">{{ doctor.description }}</textarea><br>
+            {% if doctor.description %}
+                <button type="submit">Խմբագրել</button>
+            {% else %}
+                <button type="submit">Գրանցել</button>
+            {% endif %}
+        </form>
+        <a href="javascript:window.history.back()" class="button">← Հետ</a>
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+
+</body>
+</html>

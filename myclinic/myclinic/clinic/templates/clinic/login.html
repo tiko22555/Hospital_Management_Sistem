@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h3>Եթե դեռ չունեք անձնական էջ ապա գրանցվեք ֊ <a href="{% url 'register' %}" class="button"> Գրանցում</a></h3>
+        <form action="{% url 'login_' %}" method="post">
+            {% csrf_token %}
+            <div class="error">
+                {% if error %}
+                    <p>{{ error }}</p>
+                {% endif %}
+            </div>
+            <label for="identifier">Մուտքանուն կամ էլ․ հասցե</label>
+            <input type="text" name="identifier" id="identifier"><br><br>
+            <label for="password">Գաղտնաբառ</label>
+            <input type="password" name="password" id="password"><br><br>
+            <div class="form-actions">
+                <button type="submit">Մուտք</button> <br><br>
+                <a href="{% url 'send_email_for_reset_password' %}" class="forgot-password">Մոռացել եք գաղտնաբառը?</a>
+            </div>
+            <br><br>
+        </form>
+        
+    </div>
+
+    <footer>
+        <p>Hospital Management System &copy; 2024</p>
+    </footer>
+</body>
+</html>

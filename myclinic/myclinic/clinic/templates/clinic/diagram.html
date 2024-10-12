@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAL LIFE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <div id="branding">
+            <img src="{% static 'images/logo.png' %}" alt="REAL LIFE Logo" class="logo">
+            <h1><a href="{% url 'clinic_list' %}"><em><span style="color: red;">&#10010;</span> REAL LIFE  <span style="color: red;">&#10010;</span> MEDICAL CENTER</em></a></h1>
+        </div>
+        <div class="auth-links">
+                <h2><a href="{% url 'profile' %}">Պրոֆիլ</a></h2>
+                <h2><a href="{% url 'log_out' %}">Ելք</a></h2>
+        </div>
+    </header>
+
+    <main>
+        <div class="chart-container">
+            <img src="{{ chart_image }}" alt="Диаграмма">
+        </div>
+
+        <div class="controls" style="text-align: center;">
+            <div class="year-selection">
+                <label for="year-select">Ընտրեք տարի:</label>
+                <select id="year-select">
+                    {% for year in year_list %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <button id="show-month-chart" class = button>Առաջ</button>
+            </div>
+        </div>
+
+        <div class="month-selection" style="display: none; text-align: center;">
+            <label for="month-select">Ընտրեք ամիս:</label>
+            <select id="month-select">
+                {% for month in month_list %}
+                    <option value="{{ forloop.counter }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+            <button id="show-day-chart" class = button>Առաջ</button>
+            <button id="back-to-year-chart" style="float: left;" class = button>Հետ</button>
+        </div>
+
+        <div class="day-selection" style="display: none;">
+            <button id="back-to-month-chart" style="float: left;" class = button>Հետ</button>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('#show-month-chart').click(function() {
+                const year = $('#year-select').val();
+                $.post('', { year: year }, function(data) {
+                    $('img').attr('src', data.image_url);
+                    $('.month-selection').show();
+                    $('.year-selection').hide();
+                    $('.day-selection').hide();
+                });
+            });
+
+            $('#show-day-chart').click(function() {
+                const year = $('#year-select').val();
+                const month = $('#month-select').val();
+                $.post('', { year: year, month: month }, function(data) {
+                    $('img').attr('src', data.image_url);
+                    $('.day-selection').show();
+                    $('.month-selection').hide();
+                });
+            });
+
+            $('#back-to-year-chart').click(function() {
+                $('.month-selection').hide();
+                $('.year-selection').show();
+                $('.day-selection').hide();
+                $.post('', {}, function(data) {
+                    $('img').attr('src', data.image_url);
+                });
+            });
+
+            $('#back-to-month-chart').click(function() {
+                const year = $('#year-select').val();
+                $('.day-selection').hide();
+                $('.month-selection').show();
+                $.post('', { year: year }, function(data) {
+                    $('img').attr('src', data.image_url);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
