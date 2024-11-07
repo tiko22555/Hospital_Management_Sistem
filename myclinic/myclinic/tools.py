@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from datetime import datetime
-
+import asyncio
+import threading
 def clinic_name_eng(clinic_name):
     dict_clinic_name = {
         "ՆՅԱՐԴԱԲԱՆԱԿԱՆ":"neuropatologist",
@@ -27,5 +28,15 @@ def get_months(year):
         return months_full 
         
 
-def send_email_to_user(patient_email, status, desc, admin_email):
-    send_mail(status, desc, admin_email, [patient_email], fail_silently=False)
+async def async_send_email(user_email, status, desc, admin_email):
+    await asyncio.to_thread(
+        send_mail,
+        status,
+        desc,
+        admin_email,
+        [user_email],
+        fail_silently=False
+    )
+
+def send_email_to_user(user_email, status, desc, admin_email):
+    threading.Thread(target=lambda: asyncio.run(async_send_email(user_email, status, desc, admin_email))).start()
