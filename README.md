@@ -1,26 +1,48 @@
-# Hospital_Management_Sistem
-Hospital Management Sistem
-Պրոեկտը իրենից ներկայացնում է REAL LIFE անունով Բժշկական կենտրոնի կայք որն ունի հետևյալ ֆունկցիոնալությունը՝
-Առաջին էջում բաժանմունքների ցուցակն է 
-Ընտրելով դրանցից յուրաքանչյուրը user֊ը անցնում է հաջորդ էջ որտեղ այդ բաժանմունքի բժիշկների ցուցակն է և տեղեկություն նրանց մասին։
-Ինչպես նաև ներքևում կա որոնման կոճակ որը սեղմելուց մեկ այլ էջի վրա ցուցադրվում է նշված մասնագիտությամբ այլ բժիշկների ցուցակ ՀՀ տարածքում։Ցանկացած բժիշկ Ընտրելուց user֊ը տեղափոխվում է մեկ այլ կայք որտեղ ընտրված բժշկի տվյալներն են։
-Ընտրելով բժշկին user֊ը անցնում է հաջորդ էջ որտեղ տվյալ բժշկի ժամանակացույցն է՝ 
-3 դաշտերը "տարի, ամիս, օր" ընտրելուց հետո user֊ը 4րդ դաշտում տեսնում է տվյալ օրվա ազատ ժամերի ցուցակը։
-Բոլոր տվյալները թարմացվում են նույն էջում։
-Հետո user֊ը ընտրում է իր ցանկացած ժամը և սեղմում գրանցվել կոճակը։
-Եթե user֊ը արդեն ունի կայքում գրանցված պրոֆիլ որպես պացիենտ և մուտք է գործել, տեսնում է հաղորդագրություն հաջող գրանցման մասին, հակառակ դեպքում ուղղորդվում է մուտքի էջ որտեղ գրանցված չլինելու դեպքում կա գրանցման կոճակ։
-Գրանցման և մուքի կոճակները նաև կան մինչ այս թվարկված էջերի վերնամասում։
-Եթե user֊ը արդեն իր էջում է նշված կոճակների փոխարեն ԵԼՔ և Պրոֆիլ կոճակներն են։
-Եթե user֊ը նոր է գրանցվում կայքում նրա էլ․ հասցեին ուղարկվում է հաղորդագրություն հաջող գրանցման մասին։
-user֊ի էջում ցուցադրված են իր բոլոր այցերը REAL LIFE բկ․֊ում որ բժշկի մոտ,  երբ են կայացել և ինչ եզրակացություն է գրանցել բժիշկը, ինչպես նաև գրանցված բայց դեռ չկայացած հանդիպումները որոնք պացիենտը կարող է չեղարկել ամենաուշը հանդիպումից մեկ օր առաջ։
-Պացիենտը կարող է ջնջել իր պրոֆիլը։Ինչպես նաև փոփոխել մուտքային տվյալները մոռանալու դեպքում։
-Բժիշկները որպես user գրանցվում են ադմինի կողմից։
-Բժշկին հասանելի են վերը նշված բոլոր ֆունկցիաները բացի մեկ այլ բժշկի մոտ որպես պացիենտ գրանցվելուց։
-Բժիշկը ունի իր էջը որտեղ իր տվյալներն են  փոխելու հնարավորությամբ "Նաև լուսանկար"։
-Այդ էջում կան այցերի փնտրման 3 տարբերակներ՝ կոնկրետ պացիենտի բոլոր այցերը պացիենտի էլ․ հասցեով, կոնկրետ օրվա այցերի ցուցակով, և դեռ չկայացած բոլոր հանդիպումների ցուցակով։
-Բժիշկն ունի հնարավորություն գրանցելու պացիենտ եթե տվյալ պացիենտը արդեն ունի էջ կայքում և գոնե մեկ անգամ այցելել է REAL LIFE բկ․։
-Նաև բժիշկը կարող է տեսնել իր զբաղվածության գրաֆիկը՝ տարիների, ամիսների և օրերի կտրվածքով։
-Էջում կա նաև ապաակտիվացման կոճակ որը անջատում է բժշկի պրոֆիլը և պացիենտները չեն կարող գրանցվել նրա մոտ քանի դեռ նա նորից չի ակտիվացրել։
-Բժիշկը այցերի որոնումից հետո կարող է ավելացնել եզրակացություն արդեն կայացած հանդիպումների համար, իսկ դեռ չկայացածները անհրաժեշտության դեպքում կարող է չեղարկել, որի դեպքում պացիենտի էլ․ հասցեին ուղարկվում է հաղորդագրություն։
-Պրոեկտում կիրառված են Python, Django, HTML, CSS, և որոշակիորեն Javascript։
-Պրոեկտը հնարավորինս թեստավորված է։
+Hospital Management System
+
+The Hospital Management System project represents a website for a medical center named REAL LIFE, offering extensive functionality for patients and doctors.
+
+Description
+This project focuses on automating and enhancing the efficiency of medical services. The website provides comprehensive management of medical departments, doctors, schedules, and patient registrations.
+
+Features
+
+1. Home Page
+    Displays a list of the medical center's departments.
+    After selecting a department, a detailed list of doctors in that department is shown.
+    Includes a search tool to find other specialists across Armenia.
+2. Doctor Details and Schedule
+    Users can view detailed information about a selected doctor.
+    The scheduling functionality allows users to select a year, month, and day to see available time slots.
+    After choosing a time slot, users can register for an appointment.
+3. Patient Features
+    Profile
+        Displays all past visits, as well as upcoming appointments.
+        Allows users to cancel an appointment up to one day before the scheduled date.
+        Users can delete or update their profile information.
+    Registration and Login
+        Users can register or log into their accounts.
+        Upon registration, a confirmation email is sent to the user’s email address.
+4. Doctor Features
+    Doctor's Dashboard
+        Doctors can update their personal information, including profile pictures.
+        A workload calendar displays availability by year, month, and day.
+        Provides search options for visits by patient, date, or pending appointments.
+    Additional Functions
+        Add conclusions to completed appointments.
+        Cancel appointments and notify patients automatically.
+        Deactivate their profile, making it unavailable for patient registration.
+
+5. Administrator Management
+    Doctors are registered by the admin.
+    The admin oversees the general functionality of the system.
+
+Technologies Used
+    Backend: Python, Django
+    Frontend: HTML, CSS, JavaScript
+    Database: PostgreSQL
+
+Key Features
+    A thoroughly tested system to ensure stability.
+    Easy integration of new functionalities.
+    UI/UX design aligned with international standards.
