@@ -23,29 +23,33 @@
         <h2>{{ patient }}</h2>
 
         <h3>Ձեր ընդհանուր այցերը`</h3>
-        {%if app_list_past%}
+        {% if app_list_past %}
         <ul>
             {% for app in app_list_past %}
-                <li>&#9989;{{ app.schedule|date:"F j, Y, H:i" }}
-                    - {{ app.doctor }} - <a href="{% url 'description' app.id%}">Եզրակացություն</a></li>
+                <li>
+                    {{ app.schedule|date:"F j, Y, H:i" }} - {{ app.doctor }}
+                    <div class="button-group">
+                        <a href="{% url 'appointment_description' app.id %}" class="button">&#9989; Եզրակացություն</a>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
-        {%endif%}
-        {%if app_list%}
+        {% endif %}
+        {% if app_list %}
         <ul>
             {% for app in app_list %}
-                <li>&#10060;{{ app.schedule|date:"F j, Y, H:i" }}
-                    - {{ app.doctor }} - <a href="{% url 'cancel_appointment' app.id%}" onclick="return confirm('Վստահ էք որ ուզում էք Չեղարկել հանդիպումը ?');">Չեղարկել հանդիպումը</a></li>
+                <li>
+                    {{ app.schedule|date:"F j, Y, H:i" }} - {{ app.doctor }}
+                    <div class="button-group">
+                        <a href="{% url 'cancel_appointment' app.id %}" class="button" onclick="return confirm('Վստահ եք, որ ցանկանում եք չեղարկել հանդիպումը?');">&#10060; Չեղարկել</a>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
-        {%endif%}
-        {%if not app_list and not app_list_past%}
-        <p>
-            Դուք դեռ չունեք այցեր
-        </p>
-        {%endif%}
-        
-
+        {% endif %}
+        {% if not app_list and not app_list_past %}
+        <p>Դուք դեռ չունեք այցեր</p>
+        {% endif %}
     </div>
 
     <footer>

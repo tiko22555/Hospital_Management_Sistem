@@ -4,6 +4,24 @@ from django.contrib.auth.models import User
 
 
 class UserForm(forms.ModelForm):
+    """
+    A form for creating or updating a user (patient) in the system.
+
+    This form includes fields for the user's first name, last name, email, 
+    username, and password. It also validates the uniqueness of the username 
+    and email, ensuring that no user with the same credentials exists in the system.
+
+    Attributes:
+        password (CharField): A password input field for the user.
+        
+    Methods:
+        clean_username(): Validates the username to ensure it is unique and does not contain an "@" symbol.
+        clean_email(): Validates the email to ensure it is unique in the system.
+
+    Meta:
+        model (User): The model associated with this form (the User model).
+        fields (list): The list of fields included in the form, which are first name, last name, email, username, and password.
+    """
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User

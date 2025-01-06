@@ -6,6 +6,15 @@ import calendar
 from ..tools import get_months
 
 def get_days(request):
+    """
+    Returns the available days for appointments based on the selected year and month.
+
+    If the selected month is the current month, the function adjusts the available days 
+    to exclude past days. If the current time is past 5 PM, the current day is also excluded.
+
+    Returns:
+        JsonResponse: A JSON object with the list of available days.
+    """
     year = int(request.GET.get('year'))
     month = datetime.strptime(request.GET.get('month'), '%B').month
     
@@ -22,13 +31,23 @@ def get_days(request):
     return JsonResponse({'days': []})
 
 def get_hours(request):
+    """
+    Returns the available time slots for a specific day, considering the doctor's existing appointments.
+
+    The time slots are generated from 10:00 AM to 6:00 PM. Booked slots are excluded, 
+    and if the selected day is today, past hours are also excluded.
+
+    Returns:
+        JsonResponse: A JSON object with the list of available time slots.
+    """
+    selected_year = int(request.GET.get('year'))
     selected_month = datetime.strptime(request.GET.get('month'), '%B').month
     selected_day = request.GET.get('day')
     doctor_id = request.GET.get('doctor_id')
     
     if selected_month and selected_day and doctor_id:
         doctor = get_object_or_404(Doctor, pk=doctor_id)
-        selected_date = datetime(datetime.now().year, selected_month, int(selected_day)).date()
+        selected_date = datetime(selected_year, selected_month, int(selected_day)).date()
         start_time = "10:00"
         end_time = "18:00"
         time_slots = []
@@ -49,6 +68,12 @@ def get_hours(request):
     return JsonResponse({'hours': []})
 
 def get_months_ajax(request):
+    """
+    Returns the available months for a specific year in an AJAX response.
+    
+    Returns:
+        JsonResponse: A JSON object with the list of available months.
+    """
     year = int(request.GET.get('year'))
     months = get_months(year)
     return JsonResponse({'months': months})

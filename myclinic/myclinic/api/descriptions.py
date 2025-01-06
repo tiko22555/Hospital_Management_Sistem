@@ -1,35 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ..clinic.models import Patient, Doctor, Appointment
+from django.contrib.auth.decorators import login_required
 
-def description(request, app_id):
-    if request.user.is_authenticated:
-        patient = get_object_or_404(Patient, user = request.user)
-        app = get_object_or_404(Appointment, pk = app_id, patient = patient)
-        return render(request, "clinic/description.html", {"app":app})
-    else:
-        return redirect("login_")
+@login_required
+def appointment_description(request, app_id):
+    """
+    Displays the details of an appointment for the logged-in patient.
 
-def description_edit(request, app_id):
-    if request.user.is_authenticated:
-        doctor = get_object_or_404(Doctor, user = request.user)
-        app = get_object_or_404(Appointment, pk = app_id, doctor = doctor)
-        if request.method == "GET":
-            return render(request, "clinic/description_edit.html", {"app":app})
-        else:
-            desc = request.POST["description"]
-            app.description = desc
-            app.save()
-            return redirect("doctor_profile")
+    """
+    patient = get_object_or_404(Patient, user = request.user)
+    app = get_object_or_404(Appointment, pk = app_id, patient = patient)
+    return render(request, "clinic/appointment_description.html", {"app":app})
+
+@login_required
+def appointment_description_edit(request, app_id):
+    """
+    Allows the logged-in doctor to edit the description of an appointment.
+
+    """
+    doctor = get_object_or_404(Doctor, user = request.user)
+    app = get_object_or_404(Appointment, pk = app_id, doctor = doctor)
+    if request.method == "GET":
+        return render(request, "clinic/appointment_description_edit.html", {"app":app})
     else:
-        return redirect("login_")
+        desc = request.POST["description"]
+        app.description = desc
+        app.save()
+        return redirect("doctor_profile")
+
+@login_required
 def doctor_description(request):
-    if request.user.is_authenticated:
-        doctor = get_object_or_404(Doctor, user = request.user)
-        if request.method == "GET":
-            return render(request, "clinic/doctor_description.html", {"doctor":doctor})
-        else:
-            desc = request.POST["description"]
-            doctor.description = desc
-            doctor.save()
-            return redirect("doctor_profile")
-    return redirect("login_")
+    """
+    Allows the logged-in doctor to view or update their profile description.
+
+    """
+    doctor = get_object_or_404(Doctor, user = request.user)
+    if request.method == "GET":
+        return render(request, "clinic/doctor_description.html", {"doctor":doctor})
+    else:
+        desc = request.POST["description"]
+        doctor.description = desc
+        doctor.save()
+        return redirect("doctor_profile")

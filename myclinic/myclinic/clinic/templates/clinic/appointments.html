@@ -27,7 +27,7 @@
         <ul>
             {% for app in app_list_past %}
                 <li>&#9989;{{ app.schedule|date:"F j, Y, H:i" }}
-                    - {{ app.patient }} - <a href="{% url 'description_edit' app.id%}">Եզրակացություն</a></li>
+                    - {{ app.patient }} - <a href="{% url 'appointment_description_edit' app.id%}">Եզրակացություն</a></li>
             {% endfor %}
         </ul>
         {%endif%}

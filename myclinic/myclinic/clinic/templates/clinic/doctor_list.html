@@ -6,50 +6,6 @@
     <title>REAL LIFE</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        .doctor-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .doctor-list li {
-            margin-bottom: 20px;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .doctor-info {
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .doctor-info img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-
-        .doctor-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .doctor-details p {
-            margin: 0;
-            margin-bottom: 5px;
-        }
-
-        .doctor-name {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .doctor-speciality, .doctor-email, .doctor-description {
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -82,7 +38,7 @@
                             <a href="{% url 'doctor_description_view' doctor.id %}">Կենսագրություն</a>
                         </div>
                     </div>
-                    <a href="{% url 'doctor_schedule' doctor.id %}" class="button">Ժամանակացույց</a>
+                    <a href="{% url 'create_appointment' doctor.id %}" class="button">Ժամանակացույց</a>
                 </li>
             {% endfor %}
         </ul>

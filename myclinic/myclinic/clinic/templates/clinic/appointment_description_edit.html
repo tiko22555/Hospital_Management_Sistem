@@ -22,7 +22,7 @@
         <h2>Բժիշկ ֊ {{ app.doctor }}</h2>
         <h3>Պացիենտ ֊ {{ app.patient }}</h3>
         {{ app.schedule|date:"F j, Y, H:i" }}
-        <form id="description-form" action="{% url 'description_edit' app.id %}" method="post">
+        <form id="description-form" action="{% url 'appointment_description_edit' app.id %}" method="post">
             {% csrf_token %}
             <label for="description">Եզրակացություն</label><br>
             <textarea name="description" id="description" rows="5" cols="100">{{ app.description }}</textarea><br>

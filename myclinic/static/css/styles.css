@@ -14,12 +14,11 @@ body {
 header {
     background: #8ffcdf;
     color: #06523d;
-    min-height: 100px; /* Увеличиваем минимальную высоту для лучшего выравнивания */
+    min-height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0; /* Убираем отступы */
-    margin: 0; /* Убираем внешние отступы */
+    margin: 0;
 }
 
 header a {
@@ -39,43 +38,26 @@ header .auth-links {
     margin-left: auto;
 }
 
-header .auth-links h2:first-child {
+header .auth-links h2 {
     font-size: 16px;
     margin: 0 15px;
 }
 
-header .auth-links h2:not(:first-child) {
-    font-size: 16px;
-    margin: 0 15px;
-}
-
-/* Стили для логотипа */
 #branding {
     display: flex;
     align-items: center;
-    height: 100px; /* Задаем фиксированную высоту контейнера */
+    height: 100px;
 }
 
-/* Логотип будет иметь высоту контейнера */
 .logo {
-    height: 100%; /* Логотип будет занимать всю высоту контейнера */
-    width: auto; /* Автоматическая ширина для сохранения пропорций */
-    margin-right: 10px; /* Отступ между логотипом и текстом */
-    padding: 0; /* Убираем любые отступы у изображения */
-}
-
-/* Стили для шапки */
-header {
-    padding: 0; /* Убираем отступы у самого контейнера header */
-    background-color: #8ffcdf;
-}
-
-.auth-links {
-    margin-left: auto;
+    height: 100%;
+    width: auto;
+    margin-right: 10px;
+    padding: 0;
 }
 
 footer {
-    padding: 10px; /* Делаем отступы более заметными */
+    padding: 10px;
     margin-top: 100px;
     color: #06523d;
     background-color: #8ffcdf;
@@ -101,11 +83,7 @@ li {
 }
 
 a {
-    color: #06523d;
-    text-decoration: none;
-}
-
-a:hover {
+    color:#06523d;
     text-decoration: none;
 }
 
@@ -134,10 +112,11 @@ form button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #8ffcdf;
+    background-color: aqua;
 }
 
 .error {
@@ -150,9 +129,19 @@ form button:hover {
     background-color: #8ffcdf;
     color: #06523d;
     padding: 10px 20px;
+    text-align: center;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
     margin-top: 10px;
+}
+
+.button:hover {
+    background-color: aqua;
+}
+
+.button.cancel {
+    background-color: #8ffcdf;
 }
 
 .clinic-list {
@@ -177,16 +166,16 @@ form button:hover {
 
 .clinic-image {
     width: 150px;
-    height: 100%; /* Высота изображения равна контейнеру */
+    height: 100%;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 0;
 }
 
 .doctor-list {
-    margin: 20px 0;
-    padding: 0;
     list-style: none;
+    padding: 0;
+    margin: 20px 0;
 }
 
 .doctor-list li {
@@ -200,40 +189,111 @@ form button:hover {
     border-radius: 5px;
 }
 
-.doctor-list .doctor-info {
-    flex: 1;
-}
-
-.doctor-list .button {
-    background-color: #8ffcdf;
-    color: #06523d;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.doctor-list .button:hover {
-    background-color: #8ffcdf;
-}
-
-.header-row {
+.doctor-info {
     display: flex;
-    justify-content: space-between; /* Имя пациента слева, кнопка справа */
-    align-items: center; /* Вертикальное выравнивание по центру */
+    align-items: flex-start;
+    
 }
 
-.header-row h2 {
+.doctor-info img {
+    width: 100px;
+    height: 100px;
+    
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.doctor-details p {
+    margin: 0 0 5px;
+}
+
+.doctor-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.doctor-speciality,
+.doctor-email,
+.doctor-description {
+    font-size: 14px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+
+.profile-picture-wrapper {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.profile-picture-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-info {
+    font-size: 14px;
+}
+
+.activation-button {
+    margin-left: auto;
+    align-self: flex-start;
+    font-size: 14px;
+}
+
+.actions-list {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.actions-list li {
+    margin-bottom: 10px;
+}
+
+.editable-field {
+    cursor: pointer;
+    color: #06523d;
+    text-decoration: none;
+}
+
+.edit-popup {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(233, 17, 17, 0.1);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-header h2 {
     margin: 0;
 }
 
-.header-row .button {
-    padding: 10px 20px;
-    background-color: #ff4d4d;
+.delete-button {
     color: white;
+    background-color: red;
+    padding: 10px;
     text-decoration: none;
     border-radius: 5px;
 }
 
-.header-row .button:hover {
-    background-color: #ff3333; /* Цвет кнопки при наведении */
+.delete-button:hover {
+    background-color: darkred;
 }
