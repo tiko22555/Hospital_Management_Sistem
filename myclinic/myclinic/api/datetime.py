@@ -20,7 +20,7 @@ def get_days(request):
     
     if month and 1 <= month <= 12:
         _, last_day = calendar.monthrange(year, month)
-        if datetime.now().month == month:
+        if datetime.now().month == month and datetime.now().year == year:
             days = list(range(datetime.now().day, last_day + 1))
             if datetime.now().time().hour +4 >= 17:
                 days.pop(0)
